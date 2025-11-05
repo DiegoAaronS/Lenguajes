@@ -26,6 +26,54 @@
   </style>
 </head>
 <body>
+  <header>
+    <h1>Expresiones Regulares — Resalte de coincidencias</h1>
+  </header>
+
+  <main class="app">
+    <section class="card row">
+      <label for="text">Texto a analizar</label>
+      <textarea id="text" placeholder="Pega o escribe aquí. Ejemplo:
+Correo: ana.lopez+ux@dominio.mx
+URL: https://sitio.com/path
+Fecha: 05/11/2025
+CURP: LOAA030101HDFRRS09"></textarea>
+
+      <div class="controls">
+        <label for="pattern">Elige patrón</label>
+        <select id="pattern">
+          <option value="email">Email (general)</option>
+          <option value="url">URL (http/https)</option>
+          <option value="fecha">Fecha dd/mm/aaaa</option>
+          <option value="curp">CURP (México)</option>
+        </select>
+        <button id="run">Resaltar coincidencias</button>
+        <button id="clear">Limpiar resaltado</button>
+      </div>
+
+      <div class="mini muted">
+        Los patrones usan flags <code>g</code> e <code>i</code> (cuando aplica). El texto mostrado abajo es una vista segura.
+      </div>
+    </section>
+
+    <section class="card row">
+      <label>Vista con resaltado</label>
+      <div id="preview" class="preview"></div>
+    </section>
+
+    <section class="card row">
+      <label>Patrones usados</label>
+      <div class="mini">
+        <div><strong>Email:</strong> <code>/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi</code></div>
+        <div><strong>URL:</strong> <code>/(https?:\/\/[^\s"']+)/gi</code></div>
+        <div><strong>Fecha:</strong> <code>/\b(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[0-2])\/\d{4}\b/g</code></div>
+        <div><strong>CURP:</strong> <code>/\b[A-Z]{4}\d{6}[HM][A-Z]{5}[A-Z0-9]\d\b/gi</code></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mini">Demo simple</footer>
+
 
 </body>
 </html>
