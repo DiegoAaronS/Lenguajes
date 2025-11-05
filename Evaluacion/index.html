@@ -74,6 +74,42 @@ CURP: LOAA030101HDFRRS09"></textarea>
 
   <footer class="mini">Demo simple</footer>
 
+  <script>
+    const escapeHTML = (s) => s
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
 
+    const REGEX = {
+      email: /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi,
+      url: /(https?:\/\/[^\s"']+)/gi,
+      fecha: /\b(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[0-2])\/\d{4}\b/g,
+      curp: /\b[A-Z]{4}\d{6}[HM][A-Z]{5}[A-Z0-9]\d\b/gi
+    };
+
+    const $text = document.getElementById('text');
+    const $pattern = document.getElementById('pattern');
+    const $preview = document.getElementById('preview');
+    const $run = document.getElementById('run');
+    const $clear = document.getElementById('clear');
+
+    const render = (raw, rx=null) => {
+      const safe = escapeHTML(raw || "");
+      if (!rx) { $preview.innerHTML = safe; return; }
+      const highlighted = safe.replace(rx, m => `<mark>${escapeHTML(m)}</mark>`);
+      $preview.innerHTML = highlighted;
+    };
+
+    $run.addEventListener('click', () => {
+      const key = $pattern.value;
+      const rx = REGEX[key];
+      render($text.value, rx);
+    });
+
+    $clear.addEventListener('click', () => render($text.value, null));
+    $text.addEventListener('input', () => render($text.value, null));
+
+    render($text.value, null);
+  </script>
 </body>
 </html>
